@@ -1,5 +1,6 @@
-package com.codingexam.notesapp.entity;
+package com.codingexam.notesapp.repository;
 
+import com.codingexam.notesapp.entity.Notes;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -7,19 +8,21 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-//This will serve as the record holder
+//This will serve as the record holder (Repository)
 @Component
 @Getter
 @Setter
 @Slf4j
 public class NotesEntityHolder {
     private ArrayList<Notes> notesRecords = new ArrayList<>();
-    //    we initialize the notes ID if it's saved
+    //    we initialize the notes ID as 0 upon creation of this bean,
+    //    if a note is saved, we increment the counter by 1 (this is done in the service layer)
     public static int notesIdCounter = 0;
 
-    public void save(Notes note) {
+    public Notes save(Notes note) {
         notesRecords.add(note);
         log.info("Note saved with details id:{},title:{},body:{}", note.getId(), note.getTitle(), note.getBody());
+        return note;
     }
 
     public Notes getNoteById(Integer id) {

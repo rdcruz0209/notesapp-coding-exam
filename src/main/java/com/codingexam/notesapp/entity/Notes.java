@@ -10,7 +10,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Notes {
-    @JsonIgnore
     private int id;
     private String title;
     private String body;

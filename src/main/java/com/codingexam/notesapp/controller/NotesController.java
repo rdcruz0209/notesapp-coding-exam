@@ -22,14 +22,14 @@ public class NotesController {
     }
 
     @PostMapping("/notes")
-    public void createNote(@RequestParam String title, @RequestParam String body) throws Exception {
-//        although in ui the fields are requried (default),
-//        we also check if the arguments are empty to prevent saving notes with no title or no body
+    public Notes createNote(@RequestParam String title, @RequestParam String body) throws Exception {
+//        although in swagger ui the fields are requried (default),
+//        we still check if the arguments are empty to prevent saving notes with no title or no body
         if (!StringUtils.isEmpty(title) && !StringUtils.isEmpty(body)) {
             Notes noteToSave = new Notes();
             noteToSave.setTitle(title);
             noteToSave.setBody(body);
-            notesService.save(noteToSave);
+            return notesService.save(noteToSave);
         } else {
             throw new IllegalArgumentException("A note must contain a title and body");
         }

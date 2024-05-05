@@ -9,7 +9,7 @@ public interface NotesService {
 
     ArrayList<Notes> getAllNotes();
 
-    void save(Notes note) throws Exception;
+    Notes save(Notes note) throws Exception;
 
     Notes getNoteById(Integer id);
 

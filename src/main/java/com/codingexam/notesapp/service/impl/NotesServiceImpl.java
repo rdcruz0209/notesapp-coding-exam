@@ -1,11 +1,11 @@
 package com.codingexam.notesapp.service.impl;
 
 import com.codingexam.notesapp.entity.Notes;
-import com.codingexam.notesapp.entity.NotesEntityHolder;
+import com.codingexam.notesapp.repository.NotesEntityHolder;
 import com.codingexam.notesapp.service.NotesService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import static com.codingexam.notesapp.entity.NotesEntityHolder.*;
+import static com.codingexam.notesapp.repository.NotesEntityHolder.*;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -22,14 +22,14 @@ public class NotesServiceImpl implements NotesService {
     }
 
     @Override
-    public void save(Notes note) throws IllegalArgumentException {
+    public Notes save(Notes note) throws IllegalArgumentException {
         if (Objects.nonNull(note)){
             notesIdCounter++;
             note.setId(notesIdCounter);
         }else {
             throw new IllegalArgumentException("Cannot save null object");
         }
-        notesEntityHolder.save(note);
+        return notesEntityHolder.save(note);
     }
 
     @Override
