@@ -2,6 +2,8 @@ package com.codingexam.notesapp.controller;
 
 import com.codingexam.notesapp.entity.Notes;
 import com.codingexam.notesapp.service.NotesService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.util.StringUtil;
@@ -21,6 +23,8 @@ public class NotesController {
         this.notesService = notesService;
     }
 
+
+    @Operation(description = "Create a note")
     @PostMapping("/notes")
     public Notes createNote(@RequestParam String title, @RequestParam String body) throws Exception {
 //        although in swagger ui the fields are requried (default),
@@ -35,16 +39,18 @@ public class NotesController {
         }
     }
 
+    @Operation(description ="Get all notes")
     @GetMapping("/notes")
     public ArrayList<Notes> getNotes() {
         return notesService.getAllNotes();
     }
-
+    @Operation(description ="Get note using id reference")
     @GetMapping("/notes/{id}")
     public Notes getNoteById(@PathVariable Integer id) {
         return notesService.getNoteById(id);
     }
 
+    @Operation(description ="Update a note using id as reference")
     @PutMapping("/notes/{id}")
     public Notes updateNoteById(@PathVariable Integer id, @RequestParam(required = false) String title, @RequestParam(required = false) String body) {
 //        we will still check if the arguments are both empty
@@ -56,6 +62,7 @@ public class NotesController {
         }
     }
 
+    @Operation(description = "Delete a note using id as reference")
     @DeleteMapping("/notes/{id}")
     public void deleteNoteById(@PathVariable Integer id) {
         notesService.deleteNoteById(id);
